@@ -1,0 +1,13 @@
+﻿tr{
+    background-color:#e0e0e0;
+}
+th:hover{
+    background-color:#ccc;
+}
+
+
+.viewFont{
+    font-size:15px;
+    color:#888;
+    font-family:'Arial'
+}

@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <base href="/" />
+    <title></title>
+    {css}
+    <style>
+        i {
+            font-family: font-awesome !important;
+        }
+    </style>
+</head>
+<body ng-controller="globalController as globalCtrl">
+    {js}
+
+    <div class="row text-left">
+        <span style="margin-left:20px;" class="viewFont">Folders Mgt</span>
+    </div>
+    <div class="row" style="margin-left:20px;">
+        <div class="col-md-9">
+            <table class="table table-responsive table-hover table-striped" style="height:100px;">
+                <thead style="width:100%;">
+                    <tr>
+                        <th style="width:3%;">
+                            <div class="text-left">
+                                <span class="viewFont">Edit</span>
+                            </div>
+                        </th>
+                        <th style="width:3%;">
+                            <div class="text-left">
+                                <span class="viewFont">Delete</span>
+                            </div>
+                        </th>
+                        <th style="width:17%;">
+                            <div class="text-left">
+                                <span class="viewFont">Id</span>
+                            </div>
+                        </th>
+                        <th style="width:25%;">
+                            <div class="text-left">
+                                <span class="viewFont">Name of folder</span>
+                            </div>
+                        </th>
+                        <th style="width:30%;">
+                            <div class="text-left">
+                                <span class="viewFont">Description of folder</span>
+                            </div>
+                        </th>
+                        <th style="width:25%;">
+                            <div class="text-left">
+                                <span class="viewFont">Icon of folder</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in globalCtrl.folderList.items">
+                        <td style="width:3%;" class="edit text-center">
+                            <button type="button" class="btn btn-default btn-xs" ng-click="globalCtrl.folderList.editFolder(row)" data-toggle="tooltip" data-placement="left" title="" uib-tooltip="Edit" tooltip-placement="top" tooltip-popup-delay="300">
+                                <i class="fa fa-pencil fa-fw"></i>
+                            </button>
+                        </td>
+                        <td style="width:3%;" class="edit text-center">
+                            <button type="button" class="btn btn-default btn-xs" ng-click="globalCtrl.folderList.deleteFolder(row)" data-toggle="tooltip" data-placement="left" title="" uib-tooltip="Delete" tooltip-placement="top" tooltip-popup-delay="300">
+                                <i class="fa fa-trash-o fa-fw" aria-hidden="true" style="color:red"></i>
+                            </button>
+                        </td>
+                        <td style="width:17%;"><span style="margin-left:10px;" ng-bind="row.id"></span></td>
+                        <td style="width:25%;"><span style="margin-left:10px;" ng-bind="row.name"></span></td>
+                        <td style="width:30%;"><span style="margin-left:10px;" ng-bind="row.description"></span></td>
+                        <td style="width:25%;"><span style="margin-left:10px;" ng-bind="row.icon"></span></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <input placeholder="Name of folder" value="Name of folder" type="text" ng-model="globalCtrl.folder.name" />
+            </div>
+            <div class="row">
+                <input placeholder="Description of folder" value="Description of folder" type="text" ng-model="globalCtrl.folder.description" />
+            </div>
+            <div class="row">
+                <input placeholder="Icon of folder" value="Icon of folder" type="text" ng-model="globalCtrl.folder.icon" />
+            </div>
+
+            <input type="button" class="btn btn-primary" ng-click="globalCtrl.folderList.addFolder()" value="Save folder" />
+        </div>
+    </div>
+
+    <!------------------------->
+
+    <div class="row">
+        <div class="col-md-12" style="padding: 2px 20px;">
+            <div class="row" style="margin: 5px 0px;">
+                <span style="font-size: 14px;margin-left:20px;">Select image</span>
+
+                <input type="button" id="btBrowse" onclick="getFile()" title="" value="browse image" class="btn btn-primary" ng-click="globalCtrl.SelectFileLogo1()" />
+                <span style="width:10px;"></span>
+                <span id="text2" name="text2" contenteditable="true"></span>
+            </div>
+                       
+            <span id="isRemoveDisabled" ng-bind="globalCtrl.isRemoveDisabled" hidden="hidden"></span>
+
+            <script type="text/javascript">
+                function getFile() {
+                    document.getElementById('file').click();
+                }
+                function sub(obj) {
+                    if (navigator.appName == "Netscape") {
+                        var lastChar = document.getElementById('file').value.lastIndexOf('\\');
+                        var length1 = document.getElementById('file').value.length;
+                        document.getElementById("text2").innerHTML = document.getElementById('file').value.substr(lastChar + 1, length1 - lastChar);
+                    }
+                    else {
+                        var lastChar = document.getElementById('file').value.lastIndexOf('\\');
+                        var length1 = document.getElementById('file').value.length;
+                        document.getElementById("text2").innerHTML = document.getElementById('file').value.substr(lastChar + 1, length1 - lastChar);
+                    }
+                    if (document.getElementById('file').value.length > 0) {
+                        //document.getElementById('btnRemove').setAttribute('disabled', 'disabled');
+                    } else {
+                        //document.getElementById('btnRemove').disabled = false;//('disabled', 'disabled');
+                    }
+                }
+                function Clear1() {
+                    document.getElementById("text2").innerHTML = '';
+                    if (document.getElementById('isRemoveDisabled').innerText === 'true') {
+                        //document.getElementById('btnRemove').setAttribute('disabled', 'disabled');
+                    }
+                    else
+                        if (document.getElementById('isRemoveDisabled').innerText === 'false') {
+                            //document.getElementById('btnRemove').disabled = false;//('disabled', 'disabled');
+                            //document.getElementById('btnRemove').removeAttribute('disabled');
+                        }
+                }
+                function Clear2() {
+                    document.getElementById("text2").innerHTML = '';
+                    //console.log('isRemoveDisabled:' + document.getElementById('isRemoveDisabled').innerText);
+                    if (document.getElementById('isRemoveDisabled').innerText === 'true') {
+                        //document.getElementById('btnRemove').setAttribute('disabled', 'disabled');
+                    }
+                    else
+                        if (document.getElementById('isRemoveDisabled').innerText === 'false') {
+                            //document.getElementById('btnRemove').disabled = false;//('disabled', 'disabled');
+                        }
+                }
+            </script>
+
+            <div class="row" style="margin: 5px 0px;">
+                <span style="font-size: 14px;margin-left:20px;">Submit image</span>
+                <button type="button" class="btn btn-primary" ng-click="globalCtrl.onSubmit()" data-toggle="tooltip" data-placement="left" title="" ng-disabled="globalCtrl.isSubmitting" onclick="Clear1()">Submit image</button>
+
+                <input placeholder="Description of file" value="Description of file" type="text" ng-model="globalCtrl.file1.description" />
+
+                <span style='height: 0px; width: 0px; overflow: hidden; visibility:hidden;'>
+                    <input type="file" id="file" name="file"
+                           onchange="sub(this);" />
+                </span>
+
+
+
+            </div>
+
+        </div>
+    </div>
+    <!----------------------->
+
+</body>
+</html>
